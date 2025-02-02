@@ -1,7 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
-import 'package:todo_app/my_theme/my_theme.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/login_screen.dart';
 import 'package:todo_app/onboarding_screen.dart';
+import 'package:todo_app/provider/my_provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class IntroductionnScreen extends StatelessWidget {
@@ -11,10 +15,11 @@ class IntroductionnScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider>(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        centerTitle: true,
         title: Image(
           image: AssetImage("assets/images/Group 4.png"),
         ),
@@ -31,76 +36,77 @@ class IntroductionnScreen extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              "Personalize Your Experience",
+              "introduction_title".tr(),
               style: Theme.of(context)
                   .textTheme
                   .titleMedium
-                  ?.copyWith(color: MYtheme.secondryColor),
+                  ?.copyWith(color: Theme.of(context).primaryColor),
               textAlign: TextAlign.start,
             ),
             SizedBox(height: 16),
-            Text(
-              "Choose your preferred theme and language to get started with a comfortable, tailored experience that suits your style.",
-              style: Theme.of(context)
-                  .textTheme
-                  .titleSmall
-                  ?.copyWith(color: MYtheme.thirdColor),
-            ),
+            Text("introduction_desc".tr(),
+                style: Theme.of(context).textTheme.titleSmall),
             SizedBox(height: 28),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "Language",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium
-                      ?.copyWith(color: MYtheme.secondryColor),
-                ),
+                Text("language".tr(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(color: Theme.of(context).primaryColor)),
                 ToggleSwitch(
                   minWidth: 50.28,
-                  initialLabelIndex: 0,
+                  initialLabelIndex: context.locale.toString() == 'en' ? 0 : 1,
                   cornerRadius: 30,
-                  activeBgColor: [MYtheme.secondryColor],
-                  activeFgColor: MYtheme.primaryColor,
-                  inactiveBgColor: MYtheme.primaryColor,
-                  inactiveFgColor: MYtheme.secondryColor,
+                  activeBgColor: [Theme.of(context).primaryColor],
+                  activeFgColor: Theme.of(context).scaffoldBackgroundColor,
+                  inactiveBgColor: Theme.of(context).scaffoldBackgroundColor,
+                  inactiveFgColor: Theme.of(context).primaryColor,
                   totalSwitches: 2,
                   icons: [
-                    IconData(
-                      Flags.egypt as int,
-                    ),
-                    IconData(
-                      Flags.united_states_of_america as int,
-                    ),
+                    FontAwesomeIcons.flagUsa,
+                    MdiIcons.abjadArabic,
                   ],
                   onToggle: (index) {
+                    if (index == 1) {
+                      context.setLocale(
+                        Locale('ar'),
+                      );
+                    } else {
+                      context.setLocale(
+                        Locale('en'),
+                      );
+                    }
                     print('switched to: $index');
                   },
                 ),
               ],
             ),
+            SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Theme",
+                  "theme".tr(),
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium
-                      ?.copyWith(color: MYtheme.secondryColor),
+                      ?.copyWith(color: Theme.of(context).primaryColor),
                 ),
                 ToggleSwitch(
                   minWidth: 50.28,
-                  initialLabelIndex: 0,
+                  initialLabelIndex:
+                      provider.themeMode == ThemeMode.light ? 0 : 1,
                   cornerRadius: 30,
-                  activeBgColor: [MYtheme.secondryColor],
-                  activeFgColor: MYtheme.primaryColor,
-                  inactiveBgColor: MYtheme.primaryColor,
-                  inactiveFgColor: MYtheme.secondryColor,
+                  activeBgColor: [Theme.of(context).primaryColor],
+                  activeFgColor: Theme.of(context).scaffoldBackgroundColor,
+                  inactiveBgColor: Theme.of(context).scaffoldBackgroundColor,
+                  inactiveFgColor: Theme.of(context).primaryColor,
                   totalSwitches: 2,
                   icons: [Icons.sunny, Icons.dark_mode],
                   onToggle: (index) {
+                    provider.changeTheme();
                     print('switched to: $index');
                   },
                 ),
@@ -108,26 +114,15 @@ class IntroductionnScreen extends StatelessWidget {
             ),
             SizedBox(height: 16),
             ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: WidgetStatePropertyAll(MYtheme.secondryColor),
-                fixedSize: WidgetStatePropertyAll(
-                  Size(361, 56),
-                ),
-                shape: WidgetStatePropertyAll(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
-              ),
               onPressed: () {
-                Navigator.pushNamed(context, OnboardingScreen.routeName);
+                Navigator.pushNamed(context, LoginScreen.routeName);
               },
               child: Text(
-                "Let's Start",
+                "lets_start".tr(),
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium
-                    ?.copyWith(color: MYtheme.primaryColor),
+                    ?.copyWith(color: Colors.white),
               ),
             ),
           ],

@@ -1,9 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
 import 'home_screen.dart';
-import 'my_theme/my_theme.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -17,14 +16,17 @@ class OnboardingScreen extends StatelessWidget {
     }
 
     var pageDecoration = PageDecoration(
-      titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(color: MYtheme.secondryColor),
-      bodyTextStyle: Theme.of(context).textTheme.titleSmall!.copyWith(color: MYtheme.thirdColor),
-      pageColor: MYtheme.primaryColor,
+      titleTextStyle: Theme.of(context)
+          .textTheme
+          .titleMedium!
+          .copyWith(color: Theme.of(context).primaryColor),
+      bodyTextStyle: Theme.of(context).textTheme.titleSmall!,
+      pageColor: Theme.of(context).scaffoldBackgroundColor,
       imagePadding: EdgeInsets.zero,
       imageFlex: 2,
     );
     return IntroductionScreen(
-      globalBackgroundColor: MYtheme.primaryColor,
+      globalBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
       globalHeader: const Image(
         image: AssetImage("assets/images/Group 4.png"),
       ),
@@ -32,30 +34,30 @@ class OnboardingScreen extends StatelessWidget {
         width: 37.6,
         height: 37.6,
         decoration: BoxDecoration(
-          color: MYtheme.primaryColor,
+          color: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(25),
-          border: Border.all(color: MYtheme.secondryColor),
+          border: Border.all(color: Theme.of(context).primaryColor),
         ),
         child: Icon(
           Icons.arrow_forward,
-          color: MYtheme.secondryColor,
+          color: Theme.of(context).primaryColor,
         ),
       ),
       showDoneButton: true,
       onDone: () {
-       Navigator.pushNamed(context, HomeScreen.routeName);
+        Navigator.pushReplacementNamed(context, HomeScreen.routeName);
       },
       next: Container(
         width: 37.6,
         height: 37.6,
         decoration: BoxDecoration(
-          color: MYtheme.primaryColor,
+          color: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(25),
-          border: Border.all(color: MYtheme.secondryColor),
+          border: Border.all(color: Theme.of(context).primaryColor),
         ),
         child: Icon(
           Icons.arrow_forward,
-          color: MYtheme.secondryColor,
+          color: Theme.of(context).primaryColor,
         ),
       ),
       showNextButton: true,
@@ -63,41 +65,38 @@ class OnboardingScreen extends StatelessWidget {
         width: 37.6,
         height: 37.6,
         decoration: BoxDecoration(
-          color: MYtheme.primaryColor,
+          color: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(25),
-          border: Border.all(color: MYtheme.secondryColor),
+          border: Border.all(color: Theme.of(context).primaryColor),
         ),
         child: Icon(
           Icons.arrow_back,
-          color: MYtheme.secondryColor,
+          color: Theme.of(context).primaryColor,
         ),
       ),
       showBackButton: true,
       dotsFlex: 2,
       dotsDecorator: DotsDecorator(
-        color: MYtheme.thirdColor,
-        activeColor: MYtheme.secondryColor,
+        color: Colors.black,
+        activeColor: Theme.of(context).primaryColor,
         size: Size(7, 7),
       ),
       pages: [
         PageViewModel(
-          title: "Find Events That Inspire You",
-          body:
-              "Dive into a world of events crafted to fit your unique interests. Whether you're into live music, art workshops, professional networking, or simply discovering new experiences, we have something for everyone. Our curated recommendations will help you explore, connect, and make the most of every opportunity around you.",
+          title: "onboarding1_title".tr(),
+          body: "onboarding1_body".tr(),
           image: _buildImage('being-creative(1).png'),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Effortless Event Planning",
-          body:
-              "Take the hassle out of organizing events with our all-in-one planning tools. From setting up invites and managing RSVPs to scheduling reminders and coordinating details, we’ve got you covered. Plan with ease and focus on what matters – creating an unforgettable experience for you and your guests.",
+          title: "onboarding2_title".tr(),
+          body: "onboarding2_body".tr(),
           image: _buildImage('being-creative(2).png'),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Connect with Friends & Share Moments",
-          body:
-              "Make every event memorable by sharing the experience with others. Our platform lets you invite friends, keep everyone in the loop, and celebrate moments together. Capture and share the excitement with your network, so you can relive the highlights and cherish the memories.",
+          title: "onboarding3_title".tr(),
+          body: "onboarding3_body".tr(),
           image: _buildImage('being-creative(3).png'),
           decoration: pageDecoration,
         ),
