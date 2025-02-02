@@ -1,13 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/introduction_screen.dart';
+import 'package:todo_app/screens/forget_password_screen.dart';
+import 'package:todo_app/screens/introduction_screen.dart';
 import 'package:todo_app/my_theme/theme.dart';
 import 'package:todo_app/onboarding_screen.dart';
 import 'package:todo_app/provider/my_provider.dart';
+import 'package:todo_app/screens/register_screen.dart';
 
-import 'home_screen.dart';
-import 'login_screen.dart';
+import 'screens/home_screen.dart';
+import 'screens/login_screen.dart';
 import 'my_theme/dark_theme.dart';
 import 'my_theme/light_theme.dart';
 
@@ -49,6 +51,8 @@ class TodoApp extends StatelessWidget {
           IntroductionnScreen.routeName: (context) => IntroductionnScreen(),
           OnboardingScreen.routeName: (context) => OnboardingScreen(),
           LoginScreen.routeName: (context) => LoginScreen(),
+          RegisterScreen.routeName: (context) => RegisterScreen(),
+          ForgetPasswordScreen.routeName: (context) => ForgetPasswordScreen(),
           HomeScreen.routeName: (context) => HomeScreen(),
         });
   }
