@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
@@ -12,7 +13,7 @@ class ForgetPasswordScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Forget Password",
+          "forget_password".tr(),
           style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
@@ -29,7 +30,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                   .titleSmall!
                   .copyWith(color: Theme.of(context).focusColor),
               decoration: InputDecoration(
-                labelText: "Email",
+                labelText: "email".tr(),
                 labelStyle: Theme.of(context)
                     .textTheme
                     .titleSmall!
@@ -62,7 +63,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {},
               child: Text(
-                "Reset Password",
+                "reset_password".tr(),
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium!

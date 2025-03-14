@@ -16,40 +16,51 @@ class LightTheme extends BaseLine {
 
   @override
   ThemeData get themeData => ThemeData(
-      scaffoldBackgroundColor: backgroundColor,
-      focusColor: Color(0xFF7B7B7B),
-      appBarTheme:
-          AppBarTheme(centerTitle: true, backgroundColor: backgroundColor),
-      textTheme: TextTheme(
-        titleSmall: GoogleFonts.inter(
-            fontSize: 16, fontWeight: FontWeight.w700, color: textColor),
-        titleMedium: GoogleFonts.inter(
-            fontSize: 20, fontWeight: FontWeight.w700, color: textColor),
-        titleLarge: GoogleFonts.inter(
-            fontSize: 24, fontWeight: FontWeight.w700, color: textColor),
-        bodySmall: GoogleFonts.inter(
-            fontSize: 12, fontWeight: FontWeight.w700, color: textColor),
-        bodyMedium: GoogleFonts.inter(
-            fontSize: 14, fontWeight: FontWeight.w700, color: textColor),
-      ),
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        unselectedItemColor: backgroundColor,
-        selectedItemColor: backgroundColor,
-        backgroundColor: primaryColor,
-        showUnselectedLabels: true,
-        type: BottomNavigationBarType.shifting,
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ButtonStyle(
-          backgroundColor: WidgetStatePropertyAll(primaryColor),
-          fixedSize: WidgetStatePropertyAll(
-            Size(361, 56),
+        scaffoldBackgroundColor: backgroundColor,
+        primaryColor: primaryColor,
+        focusColor: Color(0xFF7B7B7B),
+        hintColor: Color(0xFF1c1c1c),
+        appBarTheme:
+            AppBarTheme(centerTitle: true, backgroundColor: backgroundColor),
+        textTheme: TextTheme(
+          titleSmall: GoogleFonts.inter(
+              fontSize: 16, fontWeight: FontWeight.w700, color: textColor),
+          titleMedium: GoogleFonts.inter(
+              fontSize: 20, fontWeight: FontWeight.w700, color: textColor),
+          titleLarge: GoogleFonts.inter(
+              fontSize: 24, fontWeight: FontWeight.w700, color: textColor),
+          bodySmall: GoogleFonts.inter(
+              fontSize: 12, fontWeight: FontWeight.w700, color: textColor),
+          bodyMedium: GoogleFonts.inter(
+              fontSize: 14, fontWeight: FontWeight.w700, color: textColor),
+        ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          unselectedItemColor: Colors.white,
+          selectedItemColor: Colors.white,
+          backgroundColor: primaryColor,
+          showUnselectedLabels: true,
+          showSelectedLabels: true,
+          type: BottomNavigationBarType.fixed,
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: primaryColor,
+          shape: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(75),
+            borderSide: BorderSide(width: 4, color: Colors.white),
           ),
-          shape: WidgetStatePropertyAll(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor: WidgetStatePropertyAll(primaryColor),
+            fixedSize: WidgetStatePropertyAll(
+              Size(361, 56),
+            ),
+            shape: WidgetStatePropertyAll(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
             ),
           ),
         ),
-      ));
+      );
 }

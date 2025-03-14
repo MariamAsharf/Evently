@@ -17,7 +17,9 @@ class DarkTheme extends BaseLine {
   @override
   ThemeData get themeData => ThemeData(
         scaffoldBackgroundColor: backgroundColor,
-        focusColor: primaryColor,
+    primaryColor: primaryColor,
+    hintColor: Color(0xFFF4EBDC),
+    focusColor: primaryColor,
         appBarTheme:
             AppBarTheme(centerTitle: true, backgroundColor: backgroundColor),
         textTheme: TextTheme(
@@ -33,11 +35,19 @@ class DarkTheme extends BaseLine {
               fontSize: 14, fontWeight: FontWeight.w700, color: textColor),
         ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          unselectedItemColor: textColor,
-          selectedItemColor: textColor,
+          unselectedItemColor: Colors.white,
+          selectedItemColor: Colors.white,
           backgroundColor: backgroundColor,
           showUnselectedLabels: true,
-          type: BottomNavigationBarType.shifting,
+          showSelectedLabels: true,
+          type: BottomNavigationBarType.fixed,
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: backgroundColor,
+          shape: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(75),
+            borderSide: BorderSide(width: 3, color: Colors.white),
+          ),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(

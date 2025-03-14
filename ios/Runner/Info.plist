@@ -42,10 +42,10 @@
 			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
 		<key>CFBundleLocalizations</key>
-        <array>
-        	<string>en</string>
-        	<string>nb</string>
-        </array>
+		<array>
+			<string>en</string>
+			<string>nb</string>
+		</array>
 		<key>CADisableMinimumFrameDurationOnPhone</key>
 		<true/>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
