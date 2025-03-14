@@ -223,7 +223,13 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  FirebaseManager.signInWithGoogle();
+                  FirebaseManager.signInWithGoogle().then((_) {
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      HomeScreen.routeName,
+                      (route) => false,
+                    );
+                  });
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
