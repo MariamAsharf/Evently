@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/firebase/firebase_manager.dart';
 import 'package:todo_app/models/task_model.dart';
-import 'package:todo_app/screens/create_event.dart';
 
 class EventItem extends StatelessWidget {
   TaskModel model;
@@ -36,20 +35,6 @@ class EventItem extends StatelessWidget {
                       child: Text(
                         "${model.title}",
                         style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: GestureDetector(
-                        onTap: () => Navigator.pushNamed(
-                          context,
-                          CreateEvent.routeName,
-                          arguments: model,
-                        ),
-                        child: Icon(
-                          Icons.edit,
-                          color: Theme.of(context).primaryColor,
-                        ),
                       ),
                     ),
                     Padding(

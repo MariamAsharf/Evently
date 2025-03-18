@@ -1,86 +1,116 @@
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapTab extends StatefulWidget {
-  MapTab({super.key});
+  final bool isFromCreateEvent;
+
+  MapTab({this.isFromCreateEvent = false});
 
   @override
   State<MapTab> createState() => _MapTabState();
 }
 
 class _MapTabState extends State<MapTab> {
-  CameraPosition initCamera = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14,
-  );
+  CameraPosition? initCamera;
+  GoogleMapController? controller;
+  Set<Marker> markers = {};
+  LatLng? selectedLocation;
+  LatLng? originalLocation;
 
-  late Set<Marker> marker = {
-    Marker(markerId: MarkerId("1"), position: initCamera.target)
-  };
-
-  late GoogleMapController controller;
+  @override
+  void initState() {
+    super.initState();
+    _determinePosition();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          // Position currentPosition = await LocationService.determinePosition();
-          // LatLng location =
-          //     LatLng(currentPosition.latitude, currentPosition.longitude);
-          // controller.animateCamera(CameraUpdate.newLatLngZoom(location, 12));
-          // marker.add(
-          //   Marker(markerId: MarkerId("1"), position: location),
-          // );
-          // setState(() {});
-          // print(currentPosition.toString());
-
-          updateLocation();
-        },
-        child: Icon(
-          Icons.location_searching,
-          color: Theme.of(context).scaffoldBackgroundColor,
-        ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              if (originalLocation != null && controller != null) {
+                controller!.animateCamera(
+                  CameraUpdate.newLatLngZoom(originalLocation!, 14),
+                );
+              }
+            },
+            child: Icon(Icons.my_location),
+          ),
+          SizedBox(height: 16),
+          if (widget.isFromCreateEvent && selectedLocation != null)
+            FloatingActionButton(
+              onPressed: () {
+                Navigator.pop(context, selectedLocation);
+              },
+              child: Icon(
+                Icons.check,
+                color: Theme.of(context).scaffoldBackgroundColor,
+              ),
+            ),
+        ],
       ),
-      body: GoogleMap(
-        onTap: (LatLng position) async {
-          List<Placemark> place = await placemarkFromCoordinates(
-              position.latitude, position.longitude);
-          if (place.isNotEmpty) {
-            print(place[0].country);
-          }
-          setState(() {});
-        },
-        key: UniqueKey(),
-        initialCameraPosition: initCamera,
-        markers: marker,
-        onMapCreated: (GoogleMapController googleController) {
-          controller = googleController;
-        },
-      ),
+      body: initCamera == null
+          ? Center(child: CircularProgressIndicator())
+          : GoogleMap(
+        zoomControlsEnabled: false,
+              onTap: (LatLng position) {
+                updateMarker(position);
+              },
+              initialCameraPosition: initCamera!,
+              markers: markers,
+              onMapCreated: (GoogleMapController googleController) {
+                controller = googleController;
+              },
+            ),
     );
   }
 
-  void updateLocation() {
-    Stream<Position> location = Geolocator.getPositionStream(
-      locationSettings: LocationSettings(
-        accuracy: LocationAccuracy.best,
-        distanceFilter: 100,
-      ),
+  Future<void> _determinePosition() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) return;
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) return;
+    }
+    if (permission == LocationPermission.deniedForever) return;
+
+    Position currentPosition = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
     );
-    location.listen(
-      (Position current) {
-        LatLng place = LatLng(current.latitude, current.longitude);
-        marker.add(
-          Marker(markerId: MarkerId("1"), position: place),
-        );
-        controller.animateCamera(
-          CameraUpdate.newLatLngZoom(place, 17),
-        );
-      },
-    );
-    setState(() {});
+
+    LatLng userLocation =
+        LatLng(currentPosition.latitude, currentPosition.longitude);
+
+    setState(() {
+      initCamera = CameraPosition(target: userLocation, zoom: 14);
+      originalLocation = userLocation; // حفظ الموقع الأصلي
+    });
+
+    updateMarker(userLocation);
+  }
+
+  void updateMarker(LatLng newPosition) {
+    setState(() {
+      selectedLocation = newPosition;
+      markers = {
+        Marker(
+          markerId: MarkerId("selected_location"),
+          position: newPosition,
+          infoWindow: InfoWindow(title: "Selected Location"),
+        ),
+      };
+    });
+
+    if (controller != null) {
+      controller!.animateCamera(
+        CameraUpdate.newLatLngZoom(newPosition, 17),
+      );
+    }
   }
 }

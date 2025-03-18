@@ -7,6 +7,8 @@ class TaskModel {
   bool isDone;
   String userId;
   bool isFavourite;
+  double latitude;
+  double longitude;
 
   TaskModel({
     this.id = "",
@@ -17,6 +19,8 @@ class TaskModel {
     required this.userId,
     this.isDone = false,
     this.isFavourite = false,
+    required this.latitude,
+    required this.longitude,
   });
 
   TaskModel.fromJson(Map<String, dynamic> json)
@@ -29,6 +33,8 @@ class TaskModel {
           isDone: json['isDone'] ?? false,
           userId: json['userId'] ?? "",
           isFavourite: json['isFavourite'] ?? false,
+          latitude: json['latitude'] ?? 0.0,
+          longitude: json['longitude'] ?? 0.0,
         );
 
   Map<String, dynamic> toJson() {
@@ -41,6 +47,8 @@ class TaskModel {
       "userId": userId,
       "isDone": isDone,
       "isFavourite": isFavourite,
+      "latitude": latitude,
+      "longitude": longitude,
     };
   }
 }

@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:todo_app/models/task_model.dart';
 import 'package:todo_app/models/user_model.dart';
@@ -54,7 +52,7 @@ class FirebaseManager {
 
   static Stream<QuerySnapshot<TaskModel>> getEvent(String categoryName) {
     var collection = getTaskCollection();
-    if (categoryName == "All" ) {
+    if (categoryName == "All") {
       return collection
           .orderBy("date")
           .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
@@ -78,13 +76,23 @@ class FirebaseManager {
     return collection.doc(model.id).update(model.toJson());
   }
 
-  static Future<void> favouriteTask (String id, bool currentStatus) async {
+  static Future<void> favouriteTask(String id, bool currentStatus) async {
     await FirebaseFirestore.instance
         .collection('Tasks')
         .doc(id)
         .update({'isFavourite': !currentStatus});
   }
 
+  static Stream<List<TaskModel>> getFavouriteEvents() {
+    return FirebaseFirestore.instance
+        .collection("Tasks")
+        .where("isFavourite", isEqualTo: true)
+        .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+            .map((doc) => TaskModel.fromJson(doc.data()))
+            .toList());
+  }
 
   static createUser(
     String email,

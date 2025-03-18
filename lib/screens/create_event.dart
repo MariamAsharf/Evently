@@ -1,21 +1,32 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/models/task_model.dart';
 import 'package:todo_app/provider/create_event_provider.dart';
 import 'package:todo_app/widgets/select_category_item.dart';
 
 import '../firebase/firebase_manager.dart';
+import 'home/tabs/map_tab/map_tab.dart';
 
-class CreateEvent extends StatelessWidget {
+class CreateEvent extends StatefulWidget {
   static const String routeName = "Create Event";
 
   CreateEvent({super.key});
 
+  @override
+  State<CreateEvent> createState() => _CreateEventState();
+}
+
+class _CreateEventState extends State<CreateEvent> {
   TextEditingController titleController = TextEditingController();
+
   TextEditingController descriptionController = TextEditingController();
 
   var selectedDate = DateTime.now();
+
+  LatLng? selectedLocation;
+  String? selectedTime;
 
   @override
   Widget build(BuildContext context) {
@@ -156,6 +167,7 @@ class CreateEvent extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Icon(
                         Icons.calendar_month,
@@ -183,7 +195,7 @@ class CreateEvent extends StatelessWidget {
                           }
                         },
                         child: Text(
-                          "${provider.selectedDate.toString().substring(0, 10)}",
+                          "${provider.selectedDate.toString().trim().substring(0, 10)}",
                           style: Theme.of(context)
                               .textTheme
                               .titleSmall!
@@ -206,13 +218,28 @@ class CreateEvent extends StatelessWidget {
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       Spacer(),
-                      Text(
-                        "Choose Time",
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleSmall!
-                            .copyWith(color: Theme.of(context).primaryColor),
+                      GestureDetector(
+                        onTap: () async {
+                          TimeOfDay? pickedTime = await showTimePicker(
+                            context: context,
+                            initialTime: TimeOfDay.now(),
+                          );
+
+                          if (pickedTime != null) {
+                            setState(() {
+                              selectedTime = pickedTime.format(context);
+                            });
+                          }
+                        },
+                        child: Text(
+                          selectedTime ?? "Choose Time",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(color: Theme.of(context).primaryColor),
+                        ),
                       ),
+                      SizedBox(width: 10),
                     ],
                   ),
                   SizedBox(height: 8),
@@ -230,7 +257,20 @@ class CreateEvent extends StatelessWidget {
                         BorderSide(color: Theme.of(context).primaryColor),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      LatLng? location = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MapTab(isFromCreateEvent: true),
+                        ),
+                      );
+
+                      if (location != null) {
+                        setState(() {
+                          selectedLocation = location;
+                        });
+                      }
+                    },
                     child: Row(
                       children: [
                         Container(
@@ -245,7 +285,9 @@ class CreateEvent extends StatelessWidget {
                         ),
                         SizedBox(width: 8),
                         Text(
-                          "Choose Event Location",
+                          selectedLocation == null
+                              ? "Choose Event Location"
+                              : "Location Selected",
                           style: Theme.of(context)
                               .textTheme
                               .titleSmall!
@@ -265,6 +307,13 @@ class CreateEvent extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
+                      if (selectedLocation == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Please select a location")),
+                        );
+                        return;
+                      }
+
                       showDialog(
                         context: context,
                         builder: (context) {
@@ -272,12 +321,13 @@ class CreateEvent extends StatelessWidget {
                         },
                       );
                       TaskModel model = TaskModel(
-                        userId: FirebaseAuth.instance.currentUser!.uid,
-                        title: titleController.text,
-                        description: descriptionController.text,
-                        date: provider.selectedDate.millisecondsSinceEpoch,
-                        category: provider.selectedCategoryName,
-                      );
+                          userId: FirebaseAuth.instance.currentUser!.uid,
+                          title: titleController.text,
+                          description: descriptionController.text,
+                          date: provider.selectedDate.millisecondsSinceEpoch,
+                          category: provider.selectedCategoryName,
+                          latitude: selectedLocation!.latitude,
+                          longitude: selectedLocation!.longitude);
                       FirebaseManager.addEvent(model).then((value) {
                         Navigator.pop(context);
                         Navigator.pop(context);
