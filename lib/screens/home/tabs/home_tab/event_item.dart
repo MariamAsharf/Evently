@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/firebase/firebase_manager.dart';
 import 'package:todo_app/models/task_model.dart';
 import 'package:todo_app/screens/create_event.dart';
-import 'package:todo_app/screens/home/tabs/favourite_tab.dart';
 
 class EventItem extends StatelessWidget {
   TaskModel model;
@@ -64,11 +63,12 @@ class EventItem extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {
-
-                      },
+                      onTap: () => FirebaseManager.favouriteTask(
+                          model.id, model.isFavourite),
                       child: Icon(
-                        Icons.favorite,
+                        model.isFavourite
+                            ? Icons.favorite
+                            : Icons.favorite_outline,
                         color: Theme.of(context).primaryColor,
                       ),
                     ),

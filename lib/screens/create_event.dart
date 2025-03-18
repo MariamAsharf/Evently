@@ -62,6 +62,7 @@ class CreateEvent extends StatelessWidget {
                             provider.changeCategoru(index);
                           },
                           child: SelectCategoryItem(
+                            icon: provider.IconCategory[index],
                             text: provider.categoryItems[index],
                             isSelected: provider.selectedCategory == index,
                           ),
@@ -271,11 +272,11 @@ class CreateEvent extends StatelessWidget {
                         },
                       );
                       TaskModel model = TaskModel(
-                          userId: FirebaseAuth.instance.currentUser!.uid,
-                          title: titleController.text,
-                          description: descriptionController.text,
-                          date: provider.selectedDate.millisecondsSinceEpoch,
-                          category: provider.selectedCategoryName,
+                        userId: FirebaseAuth.instance.currentUser!.uid,
+                        title: titleController.text,
+                        description: descriptionController.text,
+                        date: provider.selectedDate.millisecondsSinceEpoch,
+                        category: provider.selectedCategoryName,
                       );
                       FirebaseManager.addEvent(model).then((value) {
                         Navigator.pop(context);

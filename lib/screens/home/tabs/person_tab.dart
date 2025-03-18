@@ -97,7 +97,7 @@ class _PersonTabState extends State<PersonTab> {
                     },
                     style: ButtonStyle(
                       backgroundColor:
-                          WidgetStatePropertyAll(Colors.transparent),
+                          WidgetStatePropertyAll(Theme.of(context).scaffoldBackgroundColor),
                       shape: WidgetStatePropertyAll(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
@@ -133,7 +133,7 @@ class _PersonTabState extends State<PersonTab> {
                     },
                     style: ButtonStyle(
                       backgroundColor:
-                          WidgetStatePropertyAll(Colors.transparent),
+                          WidgetStatePropertyAll(Theme.of(context).scaffoldBackgroundColor),
                       shape: WidgetStatePropertyAll(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),

@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/screens/home/tabs/favourite_tab.dart';
 import 'package:todo_app/screens/home/tabs/home_tab/home_tab.dart';
-import 'package:todo_app/screens/home/tabs/map_tab.dart';
+import 'package:todo_app/screens/home/tabs/map_tab/map_tab.dart';
 import 'package:todo_app/screens/home/tabs/person_tab.dart';
 
 import '../create_event.dart';

@@ -21,14 +21,14 @@ class TaskModel {
 
   TaskModel.fromJson(Map<String, dynamic> json)
       : this(
-          id: json['id'],
-          title: json['title'],
-          description: json['description'],
-          category: json['category'],
-          date: json['date'],
-          isDone: json['isDone'],
-          userId: json['userId'],
-          isFavourite: json['isFavourite'],
+          id: json['id'] ?? "",
+          title: json['title'] ?? "",
+          description: json['description'] ?? "",
+          category: json['category'] ?? "",
+          date: json['date'] ?? 0,
+          isDone: json['isDone'] ?? false,
+          userId: json['userId'] ?? "",
+          isFavourite: json['isFavourite'] ?? false,
         );
 
   Map<String, dynamic> toJson() {

@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:todo_app/models/task_model.dart';
 import 'package:todo_app/models/user_model.dart';
@@ -52,7 +54,7 @@ class FirebaseManager {
 
   static Stream<QuerySnapshot<TaskModel>> getEvent(String categoryName) {
     var collection = getTaskCollection();
-    if (categoryName == "All") {
+    if (categoryName == "All" ) {
       return collection
           .orderBy("date")
           .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
@@ -75,6 +77,14 @@ class FirebaseManager {
     var collection = getTaskCollection();
     return collection.doc(model.id).update(model.toJson());
   }
+
+  static Future<void> favouriteTask (String id, bool currentStatus) async {
+    await FirebaseFirestore.instance
+        .collection('Tasks')
+        .doc(id)
+        .update({'isFavourite': !currentStatus});
+  }
+
 
   static createUser(
     String email,

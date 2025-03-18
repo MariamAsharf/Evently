@@ -5,12 +5,24 @@ class CreateEventProvider extends ChangeNotifier {
     "birthday",
     "Book Club",
     "exhibitation",
-    "gaming",
+    "sports",
     "holiday",
     "meeting",
-    "sports",
+    "gaming",
     "work shop",
     "eating",
+  ];
+
+  List<IconData> IconCategory = [
+    Icons.cake_outlined,
+    Icons.chrome_reader_mode_outlined,
+    Icons.photo_album_outlined,
+    Icons.directions_bike_outlined,
+    Icons.free_cancellation,
+    Icons.meeting_room_outlined,
+    Icons.directions_bike_outlined,
+    Icons.work_outline,
+    Icons.no_meals,
   ];
 
   String get selectedCategoryName => categoryItems[selectedCategory];
@@ -24,7 +36,7 @@ class CreateEventProvider extends ChangeNotifier {
 
   DateTime selectedDate = DateTime.now();
 
-  changeData(DateTime date){
+  changeData(DateTime date) {
     selectedDate = date;
     notifyListeners();
   }

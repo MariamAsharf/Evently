@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class SelectCategoryItem extends StatelessWidget {
   bool isSelected;
   String text;
+  IconData icon;
 
-  SelectCategoryItem({super.key, required this.text, required this.isSelected});
+  SelectCategoryItem({super.key, required this.text,required this.icon, required this.isSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class SelectCategoryItem extends StatelessWidget {
       child: Row(
         children: [
           Icon(
-            Icons.sports_baseball_rounded,
+            icon,
             size: 24,
             color: isSelected ? Colors.white : Theme.of(context).primaryColor,
           ),

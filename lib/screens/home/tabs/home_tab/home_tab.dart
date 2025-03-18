@@ -29,7 +29,21 @@ class _HomeTabState extends State<HomeTab> {
     "eating",
   ];
 
+  List<IconData> IconCategory = [
+    Icons.category,
+    Icons.cake_outlined,
+    Icons.chrome_reader_mode_outlined,
+    Icons.photo_album_outlined,
+    Icons.directions_bike_outlined,
+    Icons.free_cancellation,
+    Icons.meeting_room_outlined,
+    Icons.directions_bike_outlined,
+    Icons.work_outline,
+    Icons.no_meals,
+  ];
+
   int selectedCategory = 0;
+  int index = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +163,7 @@ class _HomeTabState extends State<HomeTab> {
                             child: Row(
                               children: [
                                 Icon(
-                                  Icons.sports_baseball_rounded,
+                                  IconCategory[index],
                                   size: 24,
                                   color: selectedCategory == index
                                       ? Theme.of(context).primaryColor
