@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:todo_app/screens/login_screen.dart';
 
 import 'screens/home/home_screen.dart';
 
@@ -45,7 +46,7 @@ class OnboardingScreen extends StatelessWidget {
       ),
       showDoneButton: true,
       onDone: () {
-        Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+        Navigator.pushReplacementNamed(context, LoginScreen.routeName);
       },
       next: Container(
         width: 37.6,

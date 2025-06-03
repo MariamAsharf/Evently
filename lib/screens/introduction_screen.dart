@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/onboarding_screen.dart';
 import 'package:todo_app/screens/login_screen.dart';
 import 'package:todo_app/provider/my_provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
@@ -114,7 +115,7 @@ class IntroductionnScreen extends StatelessWidget {
             SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, LoginScreen.routeName);
+                Navigator.pushNamed(context, OnboardingScreen.routeName);
               },
               child: Text(
                 "lets_start".tr(),

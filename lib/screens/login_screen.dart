@@ -153,7 +153,7 @@ class LoginScreen extends StatelessWidget {
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          title: Text("Something Went Wrong!"),
+                          title: Text("something_went_wrong!".tr()),
                           content: Text(message),
                           actions: [
                             ElevatedButton(
@@ -161,7 +161,7 @@ class LoginScreen extends StatelessWidget {
                                 Navigator.pop(context);
                               },
                               child: Center(
-                                child: Text("OK"),
+                                child: Text("oK".tr()),
                               ),
                             ),
                           ],

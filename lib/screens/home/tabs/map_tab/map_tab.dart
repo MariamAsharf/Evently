@@ -31,6 +31,7 @@ class _MapTabState extends State<MapTab> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
+            heroTag: 'location_btn',
             onPressed: () {
               if (originalLocation != null && controller != null) {
                 controller!.animateCamera(
@@ -43,6 +44,7 @@ class _MapTabState extends State<MapTab> {
           SizedBox(height: 16),
           if (widget.isFromCreateEvent && selectedLocation != null)
             FloatingActionButton(
+              heroTag: 'check_btn',
               onPressed: () {
                 Navigator.pop(context, selectedLocation);
               },
@@ -56,7 +58,7 @@ class _MapTabState extends State<MapTab> {
       body: initCamera == null
           ? Center(child: CircularProgressIndicator())
           : GoogleMap(
-        zoomControlsEnabled: false,
+              zoomControlsEnabled: false,
               onTap: (LatLng position) {
                 updateMarker(position);
               },

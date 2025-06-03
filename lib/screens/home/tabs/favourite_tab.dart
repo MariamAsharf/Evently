@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/firebase/firebase_manager.dart';
@@ -18,7 +19,7 @@ class _FavouriteTabState extends State<FavouriteTab> {
     var provider = Provider.of<MyProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text("Favourites")),
+      appBar: AppBar(title: Text("favorite".tr())),
       body: Column(
         children: [
           Padding(
@@ -36,7 +37,7 @@ class _FavouriteTabState extends State<FavouriteTab> {
                   Icons.search,
                   color: Theme.of(context).primaryColor,
                 ),
-                labelText: "Search",
+                labelText: "search".tr(),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
                   borderSide: BorderSide(color: Theme.of(context).primaryColor),
@@ -59,7 +60,7 @@ class _FavouriteTabState extends State<FavouriteTab> {
                   return Center(child: Text("Error loading favourites"));
                 }
                 if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Center(child: Text("No favourite events yet!"));
+                  return Center(child: Text("no_favourite_events_yet!".tr()));
                 }
 
                 var filteredEvents = snapshot.data!.where((event) {

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -39,7 +40,7 @@ class _CreateEventState extends State<CreateEvent> {
           appBar: AppBar(
             iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
             title: Text(
-              "Create Event",
+              "create_event".tr(),
               style: Theme.of(context)
                   .textTheme
                   .titleMedium!
@@ -85,7 +86,7 @@ class _CreateEventState extends State<CreateEvent> {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    "Title",
+                    "title".tr(),
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                   SizedBox(height: 8),
@@ -96,7 +97,7 @@ class _CreateEventState extends State<CreateEvent> {
                         .titleSmall!
                         .copyWith(color: Theme.of(context).hintColor),
                     decoration: InputDecoration(
-                      labelText: "Event Title",
+                      labelText: "event_title".tr(),
                       labelStyle: Theme.of(context)
                           .textTheme
                           .titleSmall!
@@ -127,7 +128,7 @@ class _CreateEventState extends State<CreateEvent> {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    "Description",
+                    "description".tr(),
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                   SizedBox(height: 8),
@@ -140,7 +141,7 @@ class _CreateEventState extends State<CreateEvent> {
                         .titleSmall!
                         .copyWith(color: Theme.of(context).hintColor),
                     decoration: InputDecoration(
-                      labelText: "Event Description",
+                      labelText: "event_description".tr(),
                       labelStyle: Theme.of(context)
                           .textTheme
                           .titleSmall!
@@ -175,7 +176,7 @@ class _CreateEventState extends State<CreateEvent> {
                       ),
                       SizedBox(width: 2.5),
                       Text(
-                        "Event Date",
+                        "event_date".tr(),
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       Spacer(),
@@ -214,7 +215,7 @@ class _CreateEventState extends State<CreateEvent> {
                       ),
                       SizedBox(width: 2.5),
                       Text(
-                        "Event Time",
+                        "event_time".tr(),
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       Spacer(),
@@ -232,7 +233,7 @@ class _CreateEventState extends State<CreateEvent> {
                           }
                         },
                         child: Text(
-                          selectedTime ?? "Choose Time",
+                          selectedTime ?? "choose_time".tr(),
                           style: Theme.of(context)
                               .textTheme
                               .titleSmall!
@@ -244,7 +245,7 @@ class _CreateEventState extends State<CreateEvent> {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    "Location",
+                    "location".tr(),
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                   SizedBox(height: 8),
@@ -286,8 +287,8 @@ class _CreateEventState extends State<CreateEvent> {
                         SizedBox(width: 8),
                         Text(
                           selectedLocation == null
-                              ? "Choose Event Location"
-                              : "Location Selected",
+                              ? "choose_event_location".tr()
+                              : "location_selected".tr(),
                           style: Theme.of(context)
                               .textTheme
                               .titleSmall!
@@ -309,7 +310,7 @@ class _CreateEventState extends State<CreateEvent> {
                     onPressed: () {
                       if (selectedLocation == null) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Please select a location")),
+                          SnackBar(content: Text("please_select_a_location".tr())),
                         );
                         return;
                       }
@@ -334,7 +335,7 @@ class _CreateEventState extends State<CreateEvent> {
                       });
                     },
                     child: Text(
-                      "Add Event",
+                      "add_event".tr(),
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium!

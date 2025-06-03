@@ -42,7 +42,7 @@ class RegisterScreen extends StatelessWidget {
                   controller: nameController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "Name is required";
+                      return "name_is_required".tr();
                     }
                     return null;
                   },
@@ -85,13 +85,13 @@ class RegisterScreen extends StatelessWidget {
                   controller: emailController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "Email is required";
+                      return "email_is_required".tr();
                     }
                     final bool emailValid = RegExp(
                             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                         .hasMatch(value);
                     if (!emailValid) {
-                      return "Email is not Valid";
+                      return "email_is_not_valid".tr();
                     }
                     return null;
                   },
@@ -134,10 +134,10 @@ class RegisterScreen extends StatelessWidget {
                   controller: passwordController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "Password is required";
+                      return "password_is_required".tr();
                     }
                     if (value.length < 6) {
-                      return "Password must be At least 6 Character";
+                      return "password_must_be_at_least_6_character".tr();
                     }
                     return null;
                   },
@@ -186,13 +186,13 @@ class RegisterScreen extends StatelessWidget {
                   obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "Re-Password is required";
+                      return "re_password_is_required".tr();
                     }
                     if (value.length < 6) {
-                      return "Re-Password must be At least 6 Character";
+                      return "re_password_must_be_at_least_6_character".tr();
                     }
                     if (passwordController.text != value) {
-                      return "Re-Passsword Not Match";
+                      return "re_password_not_match".tr();
                     }
                     return null;
                   },
@@ -260,7 +260,7 @@ class RegisterScreen extends StatelessWidget {
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: Text("Something Went Wrong!"),
+                              title: Text("something_went_wrong!".tr()),
                               content: Text(message),
                               actions: [
                                 ElevatedButton(
@@ -268,7 +268,7 @@ class RegisterScreen extends StatelessWidget {
                                     Navigator.pop(context);
                                   },
                                   child: Center(
-                                    child: Text("OK"),
+                                    child: Text("oK".tr()),
                                   ),
                                 ),
                               ],
@@ -302,7 +302,7 @@ class RegisterScreen extends StatelessWidget {
                               .copyWith(fontSize: 14),
                         ),
                         TextSpan(
-                          text: " login".tr(),
+                          text: "login".tr(),
                           style: Theme.of(context)
                               .textTheme
                               .titleSmall!

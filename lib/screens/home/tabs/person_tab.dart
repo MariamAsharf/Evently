@@ -44,25 +44,28 @@ class _PersonTabState extends State<PersonTab> {
                   width: 124,
                   height: 124,
                 ),
-                SizedBox(width: 16),
+                SizedBox(width: 8),
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "${userProvider.userModel?.name}",
                       style: Theme.of(context)
                           .textTheme
-                          .titleLarge!
+                          .titleMedium!
                           .copyWith(color: Colors.white),
                     ),
                     SizedBox(height: 10),
                     Text(
                       "${userProvider.userModel?.email}",
+                    
                       style: Theme.of(context)
                           .textTheme
                           .titleSmall!
                           .copyWith(color: Colors.white),
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: false,
+                      maxLines: 1,
                     ),
                   ],
                 )
@@ -77,7 +80,7 @@ class _PersonTabState extends State<PersonTab> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   SizedBox(height: 24),
-                  Text("Language",
+                  Text("language".tr(),
                       style: Theme.of(context).textTheme.titleMedium),
                   SizedBox(height: 16),
                   ElevatedButton(
@@ -112,8 +115,8 @@ class _PersonTabState extends State<PersonTab> {
                       children: [
                         Text(
                           context.locale.toString() == 'en'
-                              ? "English"
-                              : "Arabic",
+                              ? "english".tr()
+                              : "arabic".tr(),
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!
@@ -125,7 +128,7 @@ class _PersonTabState extends State<PersonTab> {
                     ),
                   ),
                   SizedBox(height: 16),
-                  Text("Theme", style: Theme.of(context).textTheme.titleMedium),
+                  Text("theme".tr(), style: Theme.of(context).textTheme.titleMedium),
                   SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
@@ -148,8 +151,8 @@ class _PersonTabState extends State<PersonTab> {
                       children: [
                         Text(
                           provider.themeMode == ThemeMode.light
-                              ? "Light"
-                              : "Dark",
+                              ? "light".tr()
+                              : "dark".tr(),
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!
@@ -179,7 +182,7 @@ class _PersonTabState extends State<PersonTab> {
                         Icon(Icons.logout, color: Colors.white),
                         SizedBox(width: 8),
                         Text(
-                          "Logout",
+                          "logout".tr(),
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!
